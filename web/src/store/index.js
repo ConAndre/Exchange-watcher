@@ -6,6 +6,13 @@ const vuexLocal = new VuexPersistence({
   storage: window.localStorage,
 });
 
+const shedData = (obj, value = '') => {
+  for (const key in obj) {
+    if (!obj[key][value]) {
+      delete obj[key];
+    };
+  };
+};
 export default createStore({
   state: {
     items: {},
@@ -17,15 +24,14 @@ export default createStore({
       state.data = JSON.parse(JSON.stringify(data));
     },
     commitItems(state) {
-      // if (state.loaded) return;
-      let itemsArray = Array.from(Items);
-      itemsArray = itemsArray.map(array => array.pop());
-      console.log(itemsArray);
-      itemsArray = itemsArray.filter(item => item.tradeable_on_ge);
-      itemsArray = itemsArray.map(item => {
-        return { name: item.name, examine: item.examine, id: item.id };
-      });
-      state.items = markRaw(itemsArray);
+      if (state.loaded) return;
+      let items = Object.fromEntries(Items);
+      shedData(items, 'tradeable_on_ge');
+      for (const key in items) {
+        items[key] = (({ id, name, examine }) =>
+          ({ id, name, examine }))(items[key]);
+      }
+      state.items = markRaw(items);
       state.loaded = true;
     },
   },
@@ -43,8 +49,8 @@ export default createStore({
     getStateKey: (state) => (key) => state[key],
     getStateItems: (state) => (key) => {
       if (key.length <= 2) return [];
-      const items = state.items.filter(item => item.name.toLowerCase().includes(key));
-      return items;
-    }
+      return Object.values(state.items).filter(item => item.name.toLowerCase().includes(key));;
+    },
+    getStateItemWiki: (state) => (key) => { }
   },
 });
