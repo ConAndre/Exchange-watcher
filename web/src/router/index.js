@@ -10,23 +10,24 @@ const routes = [
   {
     path: '/search',
     name: 'Search',
-    component: () => import(/* webpackChunkName: "about" */ '@/views/Search.vue')
+    component: () => import(/* webpackChunkName: "search" */ '@/views/Search.vue'),
+    props: route => ({ search: route.query.search }),
   },
   {
     path: '/items',
     name: 'Items',
-    component: () => import(/* webpackChunkName: "items" */ '@/views/Items.vue')
+    component: () => import(/* webpackChunkName: "items" */ '@/views/Items.vue'),
   },
   {
     path: '/item/:id',
     name: 'ItemView',
-    component: () => import(/* webpackChunkName: "items" */ '@/views/Items.vue'),
+    component: () => import(/* webpackChunkName: "items" */ '@/views/ItemView.vue'),
     props: true,
   },
   {
     path: '/about',
     name: 'About',
-    component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue')
+    component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue'),
   }
 ];
 

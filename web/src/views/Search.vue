@@ -1,28 +1,28 @@
 <template>
   <div class="container mt-5">
     <div class="row justify-content-center">
-      <div class="col-3">
-        <input
-          class="form-control"
-          type="text"
-          name="search"
-          id="search"
-          placeholder="Search an item..."
-          v-model.lazy="search"
-        />
-      </div>
+      <MDBInput label="Search an item..." @change="updateRoute" />
       <div class="row mt-5">
         <div v-if="!!search">
           <div v-if="searchReady && hasItems" class="container w-100">
-            <router-link
-              :to="`/item/${i.id}`"
-              class="row item-row"
-              v-for="i in getStateItems(searchLowerCase)"
-              :key="i"
-            >
-              <div class="col">{{ i.name }} ${{ $filters.monetize(i.price) }}</div>
-              <div class="col item-examine">{{ i.examine }}</div>
-            </router-link>
+            <MDBTable>
+              <thead>
+                <tr>
+                  <th scope="col">id</th>
+                  <th scope="col">Item</th>
+                  <th scope="col">Examine</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="i in getStateItems(searchLowerCase)" :key="i" @click="viewId(i.id)">
+                  <th scope="row">{{ i.id }}</th>
+                  <td>{{ i.name }}</td>
+                  <td>{{ i.examine }}</td>
+                </tr>
+              </tbody>
+            </MDBTable>
+            <!-- <div class="col">{{ i.name }} ${{ $filters.monetize(i.price) }}</div>
+            <div class="col item-examine">{{ i.examine }}</div> -->
           </div>
           <div v-else-if="!searchReady"><h2>Too many results to display...</h2></div>
           <div v-else-if="searchReady && !hasItems"><h2>No results found...</h2></div>
@@ -35,19 +35,24 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-
+import { MDBInput, MDBTable } from 'mdb-vue-ui-kit';
 export default {
   name: 'search',
-  data() {
-    return {
-      search: '',
-    };
+  components: { MDBInput, MDBTable },
+  props: {
+    search: { type: String, default: '' },
   },
   mounted() {
     this.loadItems();
   },
   methods: {
     ...mapActions(['loadItems']),
+    viewId(id) {
+      this.$router.push(`/item/${id}`);
+    },
+    updateRoute(e) {
+      this.$router.replace({ query: { ...this.$router.query, search: e.target.value } });
+    },
   },
   computed: {
     ...mapGetters(['getStateItems']),
@@ -65,14 +70,8 @@ export default {
 </script>
 
 <style scoped>
-.item-row {
-  overflow-x: auto;
-  max-height: 55px;
-}
-.item-row:hover {
-  background: #1e1e1e !important;
-}
-.item-examine:hover {
-  color: white;
+tbody tr:hover {
+  color: #fc5404;
+  cursor: pointer;
 }
 </style>

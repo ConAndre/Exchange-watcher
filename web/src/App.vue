@@ -17,10 +17,8 @@
         </li>
       </ul>
     </nav>
-    <div class="d-flex flex-column flex-grow-1">
-      <div class="flex-grow-1">
-        <router-view />
-      </div>
+    <div class="d-flex flex-column flex-grow-1 overflow-auto">
+      <router-view />
     </div>
   </div>
 </template>
@@ -30,14 +28,9 @@
   font-family: Roboto, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: white;
-  font-size: 22px;
-  line-height: 1.5em;
   height: 100%;
   display: flex;
   flex-direction: column;
-  background-color: #1b1b1b;
 }
 body {
   height: 100%;
@@ -45,23 +38,14 @@ body {
 
 html {
   height: 100%;
-  overflow-y: scroll;
 }
 
 .wrapper {
   margin-top: 10vh;
   margin-right: auto;
   margin-left: auto;
-  max-width: 1160px;
+  max-width: 1360px;
   height: 100%;
-}
-
-a {
-  text-decoration: none;
-  color: white;
-}
-a:hover {
-  color: #fc5404;
 }
 </style>
 

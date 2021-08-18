@@ -20,8 +20,10 @@ export default createStore({
       // if (state.loaded) return;
       let itemsArray = Array.from(Items);
       itemsArray = itemsArray.map(array => array.pop());
+      console.log(itemsArray);
+      itemsArray = itemsArray.filter(item => item.tradeable_on_ge);
       itemsArray = itemsArray.map(item => {
-        return { name: item.name, examine: item.examine, price: item.price, id: item.id };
+        return { name: item.name, examine: item.examine, id: item.id };
       });
       state.items = markRaw(itemsArray);
       state.loaded = true;

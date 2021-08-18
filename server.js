@@ -5,6 +5,8 @@ const path = require('path');
 
 const app = express();
 
+const publicItem = require('./routes/public/item');
+
 if (app.get('env') === 'production') {
   // trust first proxy
   app.set('trust proxy', 1);
@@ -17,9 +19,9 @@ if (app.get('env') === 'production') {
   });
 }
 
-
-// app.use(express.json({ limit: '100MB' }));
 app.use(express.json()); // default 1MB
+
+app.use('/api/public/item', publicItem);
 
 // configure the history fallback
 app.use(history());

@@ -1,5 +1,6 @@
-import 'mdb-vue-ui-kit/css/mdb.min.css'
+import 'mdb-vue-ui-kit/css/mdb.min.css';
 import { createApp } from 'vue';
+import axios from 'axios';
 import App from './App.vue';
 import router from './router';
 import store from './store';
@@ -13,3 +14,5 @@ app.config.globalProperties.$filters = {
   }
 };
 app.use(store).use(router).mount('#app');
+axios.defaults.baseURL = '/api/';
+
