@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex h-100">
     <nav class="sidebar">
-      <div class="text">Project-5</div>
+      <div class="text">Exchange Watcher</div>
       <ul class="main_side">
         <li>
           <router-link to="/">Home</router-link>
