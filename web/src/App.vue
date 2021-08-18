@@ -31,16 +31,16 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: black;
+  color: white;
   font-size: 22px;
   line-height: 1.5em;
   height: 100%;
   display: flex;
   flex-direction: column;
+  background-color: #1b1b1b;
 }
 body {
   height: 100%;
-  background-color: #eee;
 }
 
 html {
@@ -49,13 +49,19 @@ html {
 }
 
 .wrapper {
-  background-color: rgba(0, 0, 0, 0.0175);
-  color: black;
   margin-top: 10vh;
   margin-right: auto;
   margin-left: auto;
   max-width: 1160px;
   height: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+a:hover {
+  color: #fc5404;
 }
 </style>
 
@@ -92,6 +98,7 @@ html {
   height: 100%;
   background: #1b1b1b;
   transition: left 0.4s ease;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .sidebar .text {
@@ -106,7 +113,6 @@ html {
 
 nav ul {
   background: #1b1b1b;
-  height: 100%;
   width: 100%;
   list-style: none;
   padding-left: 10px;

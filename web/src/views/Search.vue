@@ -12,25 +12,29 @@
         />
       </div>
       <div class="row mt-5">
-        <div v-if="searchReady" class="container w-75">
-          <router-link
-            :to="`/item/${i.id}`"
-            class="row item-row"
-            v-for="i in getStateItems(searchLowerCase)"
-            :key="i"
-          >
-            <div class="col">{{ i.name }} ${{ $filters.monetize(i.price) }}</div>
-            <div class="col overflow-x">{{ i.examine }}</div>
-          </router-link>
+        <div v-if="!!search">
+          <div v-if="searchReady && hasItems" class="container w-100">
+            <router-link
+              :to="`/item/${i.id}`"
+              class="row item-row"
+              v-for="i in getStateItems(searchLowerCase)"
+              :key="i"
+            >
+              <div class="col">{{ i.name }} ${{ $filters.monetize(i.price) }}</div>
+              <div class="col item-examine">{{ i.examine }}</div>
+            </router-link>
+          </div>
+          <div v-else-if="!searchReady"><h2>Too many results to display...</h2></div>
+          <div v-else-if="searchReady && !hasItems"><h2>No results found...</h2></div>
         </div>
-        <div v-else><h2>Too many results to display...</h2></div>
+        <div v-else><h2>Search for an item...</h2></div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapState, mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'search',
@@ -47,14 +51,14 @@ export default {
   },
   computed: {
     ...mapGetters(['getStateItems']),
-    ...mapState({
-      items: (state) => state.items,
-    }),
     searchReady() {
       return this.search.length > 2;
     },
     searchLowerCase() {
       return this.search.toLowerCase();
+    },
+    hasItems() {
+      return !!this.getStateItems(this.search.toLowerCase()).length;
     },
   },
 };
@@ -62,7 +66,13 @@ export default {
 
 <style scoped>
 .item-row {
-  background-color: bisque;
-  margin-top: 0.25em;
+  overflow-x: auto;
+  max-height: 55px;
+}
+.item-row:hover {
+  background: #1e1e1e !important;
+}
+.item-examine:hover {
+  color: white;
 }
 </style>

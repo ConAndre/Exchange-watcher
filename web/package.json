@@ -22,6 +22,7 @@
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-vue": "^7.14.0",
     "oldschooljs": "^1.9.9",
+    "osrs-trade-stats": "^0.2.9",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.2",
