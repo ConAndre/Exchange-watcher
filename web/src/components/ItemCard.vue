@@ -33,8 +33,11 @@
         >
       </MDBListGroup>
       <MDBCardBody>
-        <MDBCardLink href="#">Card link</MDBCardLink>
-        <MDBCardLink href="#">Another link</MDBCardLink>
+        <MDBCardLink
+          :href="`https://oldschool.runescape.wiki/w/Special:Lookup?type=item&id=${item.id}`"
+          target="_blank"
+          ><span class="text-center d-block">Wiki Link</span></MDBCardLink
+        >
       </MDBCardBody>
     </MDBCard>
   </div>
