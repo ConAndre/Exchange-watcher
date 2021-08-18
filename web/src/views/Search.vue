@@ -33,6 +33,7 @@
 import { mapActions, mapState, mapGetters } from 'vuex';
 
 export default {
+  name: 'search',
   data() {
     return {
       search: '',

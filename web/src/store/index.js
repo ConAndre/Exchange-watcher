@@ -1,9 +1,9 @@
 import { createStore } from 'vuex';
-import VuexPersistence from 'vuex-persist';
+// import VuexPersistence from 'vuex-persist';
 import { Items } from 'oldschooljs';
-const vuexLocal = new VuexPersistence({
-  storage: window.localStorage,
-});
+// const vuexLocal = new VuexPersistence({
+//   storage: window.localStorage,
+// });
 
 export default createStore({
   state: {
@@ -34,7 +34,7 @@ export default createStore({
     },
   },
   modules: {},
-  plugins: [vuexLocal.plugin],
+  // plugins: [vuexLocal.plugin],
   getters: {
     getStateKey: (state) => (key) => state[key],
     getStateItems: (state) => (key) => {

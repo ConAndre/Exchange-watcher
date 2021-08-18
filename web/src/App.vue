@@ -13,7 +13,7 @@
           <router-link to="/items">Items</router-link>
         </li>
         <li>
-          <router-link to="/watch">Watch</router-link>
+          <router-link to="/search">Search</router-link>
         </li>
       </ul>
     </nav>
