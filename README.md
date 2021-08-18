@@ -1,7 +1,7 @@
 Prerequisites  
 install git https://git-scm.com/download/  
 install node https://nodejs.org/en/download  
-clone repository git clone https://github.com/ConAndre/project-5.git  
+clone repository git clone https://github.com/ConAndre/Exchange-watcher.git
 
 Backend API  
 cd back-end  
