@@ -24,12 +24,12 @@ app.use(express.json()); // default 1MB
 const fs = require('fs');
 app.use('/api', (req, res, next) => {
   const date = new Date();
-  const data = `${date.toTimeString().slice(0, 8)}: [API/INFO] ${req.ip} ${req.method} ${req.url}\n`;
+  const data = `${date.toTimeString().slice(0, 8)}: [API/INFO] ${req.ip} ${req.method} ${req.url}`;
   if (app.get('env') === 'production') {
     console.info(data);
   } else {
     const logFile = path.join(__dirname, `/log/${date.toISOString().slice(0, 10)}.log`);
-    fs.appendFile(logFile, data, (error) => {
+    fs.appendFile(logFile, `${data}\n`, (error) => {
       if (error) {
         console.log(error);
       }
@@ -55,12 +55,12 @@ app.get(/.*/, function (req, res) {
 app.use((err, req, res, next) => {
   if (err) {
     const date = new Date();
-    const data = `${date.toTimeString().slice(0, 8)}: [API/ERROR] ${req.ip} ${req.method} ${req.url}\n`;
+    const data = `${date.toTimeString().slice(0, 8)}: [API/ERROR] ${req.ip} ${req.method} ${req.url}`;
     if (app.get('env') === 'production') {
       console.error(data);
     } else {
       const logFile = path.join(__dirname, `/log/${date.toISOString().slice(0, 10)}.log`);
-      fs.appendFile(logFile, data, (error) => {
+      fs.appendFile(logFile, `${data}\n`, (error) => {
         if (error) {
           console.log(error);
         }
