@@ -2,6 +2,7 @@ const express = require('express');
 const history = require('connect-history-api-fallback');
 const serveStatic = require('serve-static');
 const path = require('path');
+const axios = require('axios');
 
 const app = express();
 
@@ -18,8 +19,12 @@ if (app.get('env') === 'production') {
     else next();
   });
 }
-
 app.use(express.json()); // default 1MB
+
+app.use('/api', (req, res, next) => {
+  console.log(`[API] ${req.ip} ${req.method} ${req.url} `);
+  next();
+});
 
 app.use('/api/public/item', publicItem);
 
@@ -32,6 +37,7 @@ app.use("/", serveStatic(path.join(__dirname, 'web/dist')));
 app.get(/.*/, function (req, res) {
   res.sendFile(path.join(__dirname, 'web/dist/index.html'));
 });
+
 
 // error handler
 app.use((err, req, res, next) => {
@@ -54,19 +60,6 @@ app.use((err, req, res, next) => {
     }
     console.error(err);
   }
-});
-
-['log', 'warn', 'error'].forEach(function (method) {
-  var old = console[method];
-  console[method] = function () {
-    var stack = (new Error()).stack.split(/\n/);
-    // Chrome includes a single "Error" line, FF doesn't.
-    if (stack[0].indexOf('Error') === 0) {
-      stack = stack.slice(1);
-    }
-    var args = [].slice.apply(arguments).concat([stack[1].trim()]);
-    return old.apply(console, args);
-  };
 });
 
 const PORT = process.env.PORT || 3000;
