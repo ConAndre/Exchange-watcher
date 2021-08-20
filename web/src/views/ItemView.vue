@@ -9,6 +9,8 @@
 <script>
 import axios from 'axios';
 import ItemCard from '@/components/ItemCard.vue';
+import { useToast } from 'vue-toastification';
+import errorParser from '@/lib/errorParser';
 
 export default {
   name: 'itemView',
@@ -20,14 +22,19 @@ export default {
   },
   data() {
     return {
+      toast: useToast(),
       item: {},
       loaded: true,
     };
   },
   async mounted() {
     this.loaded = false;
-    const { data } = await axios.get(`public/item/${this.id}`);
-    this.item = data;
+    try {
+      const { data } = await axios.get(`public/item/${this.id}`);
+      this.item = data;
+    } catch (error) {
+      this.toast.error(`${errorParser(error)}`, { timeout: 3000 });
+    }
     this.loaded = true;
   },
 };

@@ -4,7 +4,11 @@ const { getFromOfficialAPI } = require('osrs-trade-stats');
 
 router.get('/:id', async function (req, res, next) {
   try {
-    res.json(await getFromOfficialAPI(req.params.id));
+    try {
+      res.json(await getFromOfficialAPI(req.params.id));
+    } catch (error) {
+      throw ({ client: true, status: error.response.status, msg: error.response.statusText });
+    }
   } catch (error) {
     next(error);
   }
